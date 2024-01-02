@@ -1,0 +1,77 @@
+:root {
+  min-height: 100%;
+  line-height: 1.5;
+  font-family: League Spartan, sans-serif;
+  background-color: hsl(180, 52%, 96%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  font-size: inherit;
+  border-style: solid;
+  font-weight: inherit;
+  box-sizing: border-box;
+  border-color: transparent;
+}
+
+img,
+svg {
+  height: auto;
+  display: block;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+header {
+  background-color: hsl(180, 29%, 50%);
+  height: 128px;
+}
+
+#listings {
+  gap: 32px;
+  display: flex;
+  margin: 24px 0;
+  list-style: none;
+  flex-flow: column nowrap;
+}
+
+#listings li {
+  display: contents;
+}
+
+#listings li > div {
+  width: 90%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+#listings li > div img + div,
+#listings li > div img + div div {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+#listings li > div img + div div {
+  gap: 10px;
+}
+
+#listings li > div img + div div span {
+  padding: 6px 8px 2px;
+  border-radius: 999px;
+  color: #fff;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.isNew {
+  background-color: hsl(180, 29%, 50%);
+}
+
+.isFeatured {
+  background-color: #000c;
+}
