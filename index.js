@@ -45,6 +45,26 @@ window.document.addEventListener("DOMContentLoaded", async function () {
     const _position = window.document.createElement("h3");
     _position.innerHTML = position;
     div.appendChild(_position);
+    const div4 = window.document.createElement("div");
+    const _postedAt = window.document.createElement("span");
+    _postedAt.innerHTML = postedAt;
+    div4.appendChild(_postedAt);
+    const _contract = window.document.createElement("span");
+    _contract.innerHTML = contract;
+    div4.appendChild(_contract);
+    const _location = window.document.createElement("span");
+    _location.innerHTML = location;
+    div4.appendChild(_location);
+    div.appendChild(div4);
+    const hr = window.document.createElement("hr");
+    div.appendChild(hr);
+    const div5 = window.document.createElement("div");
+    [role, level, ...languages, ...tools].forEach(function (t) {
+      const tag = window.document.createElement("span");
+      tag.innerHTML = t;
+      div5.appendChild(tag);
+    });
+    div.appendChild(div5);
     return li;
   }
   const listings = window.document.getElementById("listings");

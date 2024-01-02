@@ -37,11 +37,11 @@ header {
   flex-flow: column nowrap;
 }
 
-#listings li {
+#listings > li {
   display: contents;
 }
 
-#listings li > div {
+#listings > li > div {
   width: 90%;
   margin: 0 auto;
   background-color: #fff;
@@ -49,18 +49,18 @@ header {
   padding: 32px;
 }
 
-#listings li > div img + div,
-#listings li > div img + div div {
+#listings > li > div img + div,
+#listings > li > div img + div div {
   display: flex;
   align-items: center;
-  gap: 2em;
+  gap: 1.5em;
 }
 
-#listings li > div img + div div {
-  gap: 10px;
+#listings > li > div img + div div {
+  gap: 0.625em;
 }
 
-#listings li > div img + div div span {
+#listings > li > div img + div div span {
   padding: 6px 8px 2px;
   border-radius: 999px;
   color: #fff;
@@ -74,4 +74,46 @@ header {
 
 .isFeatured {
   background-color: #000c;
+}
+
+#listings > li > div img + div + h3 + div {
+  display: flex;
+  align-items: center;
+}
+
+#listings > li > div img + div + h3 + div span {
+  line-height: 1;
+}
+
+#listings > li > div img + div + h3 + div span:not(:first-child)::before {
+  content: "\2022";
+  display: inline-block;
+  width: 1em;
+  aspect-ratio: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#listings > li > div hr {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: hsl(180, 29%, 50%);
+  margin: 1em 0;
+}
+
+#listings > li > div hr + div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625em;
+}
+
+#listings > li > div hr + div span {
+  flex-shrink: 0;
+  color: hsl(180, 29%, 50%);
+  background-color: hsl(180, 52%, 96%);
+  border-radius: 4px;
+  line-height: 1;
+  padding: 8px 10px 4px;
 }
