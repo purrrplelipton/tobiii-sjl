@@ -15,56 +15,62 @@ window.document.addEventListener("DOMContentLoaded", async function () {
       tools,
     } = o;
     const li = window.document.createElement("li");
-    const div = window.document.createElement("div");
-    li.appendChild(div);
+    const wrapper = window.document.createElement("div");
+    wrapper.setAttribute("data-featured", featured);
+    li.appendChild(wrapper);
+    const topDiv = window.document.createElement("div");
+    topDiv.className = "top-div";
+    const imgWrapper = window.document.createElement("div");
+    imgWrapper.className = "company-logo-wrapper";
     const img = window.document.createElement("img");
     img.setAttribute("src", logo);
     img.setAttribute("alt", `logo of a company called ${company}`);
     img.setAttribute("loading", "lazy");
-    div.appendChild(img);
-    const div2 = window.document.createElement("div");
-    li.appendChild(div2);
+    imgWrapper.appendChild(img);
+    topDiv.appendChild(imgWrapper);
+    const topDiv_layer1 = window.document.createElement("div");
+    topDiv.appendChild(topDiv_layer1);
     const _company = window.document.createElement("h2");
     _company.innerHTML = company;
-    div2.appendChild(_company);
-    const div3 = window.document.createElement("div");
-    div2.appendChild(div3);
+    topDiv_layer1.appendChild(_company);
+    const layer1_tagsDiv = window.document.createElement("div");
+    layer1_tagsDiv.className = "top-div-tags";
+    topDiv_layer1.appendChild(layer1_tagsDiv);
     if (isNew) {
       const new_tag = window.document.createElement("span");
       new_tag.setAttribute("class", "isNew");
       new_tag.innerHTML = "NEW!";
-      div3.appendChild(new_tag);
+      layer1_tagsDiv.appendChild(new_tag);
     }
     if (featured) {
       const featured_tag = window.document.createElement("span");
       featured_tag.setAttribute("class", "isFeatured");
       featured_tag.innerHTML = "FEATURED";
-      div3.appendChild(featured_tag);
+      layer1_tagsDiv.appendChild(featured_tag);
     }
-    div.appendChild(div2);
+    wrapper.appendChild(topDiv);
     const _position = window.document.createElement("h3");
     _position.innerHTML = position;
-    div.appendChild(_position);
-    const div4 = window.document.createElement("div");
-    const _postedAt = window.document.createElement("span");
-    _postedAt.innerHTML = postedAt;
-    div4.appendChild(_postedAt);
-    const _contract = window.document.createElement("span");
-    _contract.innerHTML = contract;
-    div4.appendChild(_contract);
-    const _location = window.document.createElement("span");
-    _location.innerHTML = location;
-    div4.appendChild(_location);
-    div.appendChild(div4);
-    const hr = window.document.createElement("hr");
-    div.appendChild(hr);
-    const div5 = window.document.createElement("div");
-    [role, level, ...languages, ...tools].forEach(function (t) {
+    topDiv_layer1.appendChild(_position);
+    const topDiv_layer3 = window.document.createElement("div");
+    [postedAt, contract, location].forEach(function (x) {
       const tag = window.document.createElement("span");
-      tag.innerHTML = t;
-      div5.appendChild(tag);
+      tag.innerHTML = x;
+      topDiv_layer3.appendChild(tag);
     });
-    div.appendChild(div5);
+    topDiv.appendChild(topDiv_layer3);
+    const hr = window.document.createElement("hr");
+    wrapper.appendChild(hr);
+    const bottomDiv = window.document.createElement("div");
+    const bottomDiv_tagsLayer = window.document.createElement("div");
+    bottomDiv_tagsLayer.className = "bottom-div-tags-layer";
+    [role, level, ...languages, ...tools].forEach(function (x) {
+      const tag = window.document.createElement("span");
+      tag.innerHTML = x;
+      bottomDiv_tagsLayer.appendChild(tag);
+    });
+    bottomDiv.appendChild(bottomDiv_tagsLayer);
+    wrapper.appendChild(bottomDiv);
     return li;
   }
   const listings = window.document.getElementById("listings");
