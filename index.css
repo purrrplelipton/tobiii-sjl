@@ -9,9 +9,8 @@
   margin: 0;
   padding: 0;
   border-width: 0;
-  font-size: inherit;
+  font: inherit;
   border-style: solid;
-  font-weight: inherit;
   box-sizing: border-box;
   border-color: transparent;
 }
@@ -21,18 +20,33 @@ svg {
   height: auto;
   display: block;
   max-width: 100%;
-  vertical-align: middle;
 }
 
 header {
   background-color: hsl(180, 29%, 50%);
-  height: 128px;
+  background-image: url(./images/bg-header-mobile.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 156px;
+}
+
+@media (min-width: 1024px) {
+  header {
+    background-image: url(./images/bg-header-desktop.svg);
+    background-size: cover;
+  }
+}
+
+main {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 #listings {
-  gap: 32px;
+  gap: 48px;
   display: flex;
-  margin: 24px 0;
+  margin: 64px 0;
   list-style: none;
   flex-flow: column nowrap;
 }
@@ -45,27 +59,87 @@ header {
   width: 90%;
   margin: 0 auto;
   background-color: #fff;
-  border-radius: 8px;
-  padding: 32px;
+  border-radius: 6px;
+  padding: 40px 24px 30px;
+  position: relative;
+  box-shadow: 0 8px 24px #0002;
 }
 
-#listings > li > div img + div,
+@media (min-width: 1024px) {
+  #listings > li > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+#listings > li > div[data-featured="true"]::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(100% - 4px) 0 0;
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+  background-color: hsl(180, 29%, 50%);
+}
+
+.company-logo-wrapper {
+  width: 52px;
+  aspect-ratio: 1 / 1;
+  position: absolute;
+  inset: 0 auto auto 0;
+  transform: translate(24px, -50%);
+  background-color: hsl(180, 29%, 50%);
+  border-radius: 999px;
+}
+
+@media (min-width: 1024px) {
+  .company-logo-wrapper {
+    width: 64px;
+    position: relative;
+    transform: initial;
+  }
+}
+
+.company-logo-wrapper img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (min-width: 1024px) {
+  .top-div {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+}
+
+.top-div-layer1,
 .top-div-tags {
   display: flex;
   align-items: center;
   gap: 1.5em;
 }
 
+.top-div-layer1 h2 {
+  color: hsl(180, 29%, 50%);
+  line-height: 1;
+}
+
 .top-div-tags {
-  gap: 0.625em;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.9375em;
+  line-height: 0.8;
+  gap: 0.625rem;
 }
 
 .top-div-tags span {
-  padding: 6px 8px 2px;
+  padding: 6px 8px 4px;
   border-radius: 999px;
-  color: #fff;
-  line-height: 1;
-  font-weight: 500;
 }
 
 .isNew {
@@ -73,19 +147,34 @@ header {
 }
 
 .isFeatured {
-  background-color: #000c;
+  background-color: hsl(180, 14%, 20%);
 }
 
-#listings > li > div img + div + h3 + div {
+.top-div-layer1 + button {
+  color: hsl(180, 14%, 20%);
+  background-color: transparent;
+  font-weight: 700;
+  margin: 0.625em 0;
+}
+
+.top-div-layer1 + button:hover {
+  color: hsl(180, 29%, 50%);
+}
+
+@media (min-width: 1024px) {
+  .top-div-layer1 + button {
+    margin: 4px 0 4px;
+  }
+}
+
+.top-div-layer3 {
   display: flex;
   align-items: center;
-}
-
-#listings > li > div img + div + h3 + div span {
+  color: hsl(180, 8%, 52%);
   line-height: 1;
 }
 
-#listings > li > div img + div + h3 + div span:not(:first-child)::before {
+.top-div-layer3 span:not(:first-child)::before {
   content: "\2022";
   display: inline-block;
   width: 1em;
@@ -102,18 +191,30 @@ header {
   margin: 1em 0;
 }
 
+@media (min-width: 1024px) {
+  #listings > li > div hr {
+    display: none;
+  }
+}
+
 .bottom-div-tags-layer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.625em;
+  line-height: 1;
+  font-weight: 700;
 }
 
-.bottom-div-tags-layer span {
+.bottom-div-tags-layer button {
   flex-shrink: 0;
   color: hsl(180, 29%, 50%);
-  background-color: hsl(180, 52%, 96%);
+  background-color: hsl(180, 31%, 95%);
   border-radius: 4px;
-  line-height: 1;
   padding: 8px 10px 4px;
+}
+
+.bottom-div-tags-layer button:hover {
+  color: #fff;
+  background-color: hsl(180, 29%, 50%);
 }

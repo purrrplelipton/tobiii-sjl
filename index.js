@@ -28,8 +28,12 @@ window.document.addEventListener("DOMContentLoaded", async function () {
     img.setAttribute("loading", "lazy");
     imgWrapper.appendChild(img);
     topDiv.appendChild(imgWrapper);
+    const logoSibling = window.document.createElement("div");
+    logoSibling.className = "job-details";
     const topDiv_layer1 = window.document.createElement("div");
-    topDiv.appendChild(topDiv_layer1);
+    topDiv_layer1.className = "top-div-layer1";
+    logoSibling.appendChild(topDiv_layer1);
+    topDiv.appendChild(logoSibling);
     const _company = window.document.createElement("h2");
     _company.innerHTML = company;
     topDiv_layer1.appendChild(_company);
@@ -49,23 +53,26 @@ window.document.addEventListener("DOMContentLoaded", async function () {
       layer1_tagsDiv.appendChild(featured_tag);
     }
     wrapper.appendChild(topDiv);
-    const _position = window.document.createElement("h3");
+    const _position = window.document.createElement("button");
+    _position.type = "button";
     _position.innerHTML = position;
-    topDiv_layer1.appendChild(_position);
+    logoSibling.appendChild(_position);
     const topDiv_layer3 = window.document.createElement("div");
+    topDiv_layer3.className = "top-div-layer3";
     [postedAt, contract, location].forEach(function (x) {
       const tag = window.document.createElement("span");
       tag.innerHTML = x;
       topDiv_layer3.appendChild(tag);
     });
-    topDiv.appendChild(topDiv_layer3);
+    logoSibling.appendChild(topDiv_layer3);
     const hr = window.document.createElement("hr");
     wrapper.appendChild(hr);
     const bottomDiv = window.document.createElement("div");
     const bottomDiv_tagsLayer = window.document.createElement("div");
     bottomDiv_tagsLayer.className = "bottom-div-tags-layer";
     [role, level, ...languages, ...tools].forEach(function (x) {
-      const tag = window.document.createElement("span");
+      const tag = window.document.createElement("button");
+      tag.type = "button";
       tag.innerHTML = x;
       bottomDiv_tagsLayer.appendChild(tag);
     });
@@ -73,17 +80,19 @@ window.document.addEventListener("DOMContentLoaded", async function () {
     wrapper.appendChild(bottomDiv);
     return li;
   }
-  const listings = window.document.getElementById("listings");
-  if (listings) {
-    try {
-      const res = await fetch("./data.json");
-      if (!res.ok) {
-        throw new Error("An error occured.");
-      }
-      const data = await res.json();
-      data.forEach((d) => listings.appendChild(job(d)));
-    } catch (error) {
-      throw new Error(error.message);
+  try {
+    const res = await fetch("./data.json");
+    if (!res.ok) {
+      throw new Error("An error occured.");
     }
+    const data = await res.json();
+    if (data) {
+      const listings = window.document.getElementById("listings");
+      if (listings) {
+        data.forEach((d) => listings.appendChild(job(d)));
+      }
+    }
+  } catch (error) {
+    throw new Error(error.message);
   }
 });
