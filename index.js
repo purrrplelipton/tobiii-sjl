@@ -1,5 +1,12 @@
 window.document.addEventListener("DOMContentLoaded", async function () {
-  function job(o) {
+  const selectedFilters = [];
+  function jobFilter(o) {
+    const params = [o.role, o.level, ...o.languages, ...o.tools];
+    selectedFilters.forEach(function (f) {
+      return params.includes(f);
+    });
+  }
+  function createJob(o) {
     const {
       company,
       logo,
@@ -72,8 +79,14 @@ window.document.addEventListener("DOMContentLoaded", async function () {
     bottomDiv_tagsLayer.className = "bottom-div-tags-layer";
     [role, level, ...languages, ...tools].forEach(function (x) {
       const tag = window.document.createElement("button");
+      tag.setAttribute("data-value", x);
       tag.type = "button";
       tag.innerHTML = x;
+      tag.addEventListener("click", function (e) {
+        const value = e.target.getAttribute("data-value");
+        if (!selectedFilters.includes(value)) selectedFilters.push(value);
+        console.log({ selectedFilters });
+      });
       bottomDiv_tagsLayer.appendChild(tag);
     });
     bottomDiv.appendChild(bottomDiv_tagsLayer);
@@ -89,7 +102,9 @@ window.document.addEventListener("DOMContentLoaded", async function () {
     if (data) {
       const listings = window.document.getElementById("listings");
       if (listings) {
-        data.forEach((d) => listings.appendChild(job(d)));
+        data.forEach(function (o) {
+          if (jobFilter(o)) listings.appendChild(createJob(o));
+        });
       }
     }
   } catch (error) {
