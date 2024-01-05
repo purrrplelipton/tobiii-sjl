@@ -1,8 +1,37 @@
 window.document.addEventListener("DOMContentLoaded", async function () {
-  const selectedFilters = [];
+  let selectedFilters = [];
+  const _selectedFilters = window.document.querySelector("#filters-bar div");
+  function updateSelectedFilters() {
+    _selectedFilters.innerHTML = "";
+    selectedFilters.forEach(function (f) {
+      const filter = window.document.createElement("div");
+      const removeBtn = window.document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.setAttribute("data-value", f);
+      removeBtn.ariaLabel = `remove filter: ${f}`;
+      removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path fill="#FFF" fill-rule="evenodd" d="M11.314 0l2.121 2.121-4.596 4.596 4.596 4.597-2.121 2.121-4.597-4.596-4.596 4.596L0 11.314l4.596-4.597L0 2.121 2.121 0l4.596 4.596L11.314 0z"/></svg>`;
+      const filterValue = window.document.createElement("span");
+      filterValue.innerHTML = f;
+      [filterValue, removeBtn].forEach(function (el) {
+        filter.appendChild(el);
+      });
+      _selectedFilters.appendChild(filter);
+    });
+  }
+  window.document
+    .querySelector("#filters-bar button")
+    .addEventListener("click", function () {
+      selectedFilters = [];
+      updateSelectedFilters();
+    });
+  _selectedFilters.querySelectorAll("button").forEach(function (btn) {
+    const value = btn.getAttribute("data-value");
+    const updatedFilters = selectedFilters.filter((f) => f !== value);
+    selectedFilters = [...updatedFilters];
+  });
   function jobFilter(o) {
     const params = [o.role, o.level, ...o.languages, ...o.tools];
-    selectedFilters.forEach(function (f) {
+    return selectedFilters.every(function (f) {
       return params.includes(f);
     });
   }
@@ -82,11 +111,6 @@ window.document.addEventListener("DOMContentLoaded", async function () {
       tag.setAttribute("data-value", x);
       tag.type = "button";
       tag.innerHTML = x;
-      tag.addEventListener("click", function (e) {
-        const value = e.target.getAttribute("data-value");
-        if (!selectedFilters.includes(value)) selectedFilters.push(value);
-        console.log({ selectedFilters });
-      });
       bottomDiv_tagsLayer.appendChild(tag);
     });
     bottomDiv.appendChild(bottomDiv_tagsLayer);
@@ -101,6 +125,20 @@ window.document.addEventListener("DOMContentLoaded", async function () {
     const data = await res.json();
     if (data) {
       const listings = window.document.getElementById("listings");
+      const fltrBtns = window.document.querySelectorAll(
+        ".bottom-div-tags-layer button"
+      );
+      console.log(fltrBtns);
+      fltrBtns.forEach(function (tag) {
+        tag.addEventListener("click", function (e) {
+          const value = e.target.getAttribute("data-value");
+          if (!selectedFilters.includes(value)) {
+            selectedFilters.push(value);
+            console.log("Selected Filters:", selectedFilters);
+            updateSelectedFilters();
+          }
+        });
+      });
       if (listings) {
         data.forEach(function (o) {
           if (jobFilter(o)) listings.appendChild(createJob(o));

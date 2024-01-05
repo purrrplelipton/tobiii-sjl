@@ -43,6 +43,62 @@ main {
   margin: 0 auto;
 }
 
+#filters-bar {
+  width: 90%;
+  display: flex;
+  padding: 24px;
+  position: fixed;
+  z-index: 99;
+  border-radius: 6px;
+  align-items: center;
+  inset: 0 auto auto 50%;
+  background-color: #fff;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px #0002;
+  transform: translate(-50%, 100%);
+}
+
+#filters-bar > div {
+  gap: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#filters-bar > div div {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  color: hsl(180, 29%, 50%);
+  background-color: hsl(180, 52%, 96%);
+  overflow: hidden;
+  line-height: 0.875;
+}
+
+#filters-bar > div div span {
+  padding: 8px;
+}
+
+#filters-bar > div div button {
+  flex-shrink: 0;
+  color: #fff;
+  background-color: hsl(180, 29%, 50%);
+  border-radius: 0 inherit inherit 0;
+  padding: 8px;
+}
+
+#filters-bar > button {
+  font-weight: 700;
+  color: hsl(180, 8%, 52%);
+  background-color: transparent;
+}
+
+#filters-bar > button:hover {
+  color: hsl(180, 29%, 50%);
+  text-decoration: underline;
+}
+
 #listings {
   gap: 48px;
   display: flex;
