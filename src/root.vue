@@ -51,7 +51,7 @@
         ) in filteredJobs"
         :key="`${id}_${i}`"
       >
-        <li :data-featured="featured" :id="`#${position.replace(/\W/gu, '-')}`">
+        <li :data-featured="featured" :id="position.replace(/\W/gu, '-')">
           <div>
             <div class="company-logo">
               <div>
